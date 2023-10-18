@@ -1,0 +1,108 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>User Registration</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+<div align="center">
+    <h1 style="color:blue">SEARCHING-BOX</h1><br><br>
+    <form  th:action="@{/customers}" method="post" th:object="${plan}">
+     
+        
+<table class="table">
+  <thead>
+    
+  </thead>
+  <tbody>
+    <tr>
+     
+      <td><label>Plan Name:</label>
+      <select   th:field=*{pName} class="text-success">
+   	<option value="">-Plan-</option>
+  <option th:each="p:${plans}" th:value="${p}" th:text="${p}" ></option>
+ 
+</select></td>
+      <td><label>Plan Status:</label>
+      
+      <select   th:field=*{pStatus} class="text-success">
+	<option value="">-Status-</option>
+  <option th:each="p:${status}" th:value="${p}" th:text="${p}" ></option>
+ 
+</select></td>
+      <td><label>Gendar:</label>
+      <select   th:field=*{pGender} class="text-success" >
+    	<option value="">-Gender-</option>
+  <option  th:value="F"  >Female</option>
+  <option  th:value="M"  >Male</option>
+</select>
+</td>
+<td><label>StartDate:</label>
+      <input  th:field=*{pStartDate} type="date"/>
+     
+</td>
+<td>
+<label>EndDate:</label>
+      <input  th:field=*{pEnddate} type="date"/>
+     </td>
+     
+   <td><input type="submit" value="Search" class="btn btn-primary" /></td>
+    </tr>
+  
+  </tbody>
+</table>
+          
+    </form><br><br>
+    <table class="table" >
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">NAME</th>
+      <th scope="col">E-MAIL</th>
+      <th scope="col">PHONE-NUMBER</th>
+      <th scope="col">GENDER</th>
+      <th scope="col">SSN </th>
+      <th scope="col">PlanName </th>
+      <th scope="col">Status </th>
+      <th scope="col">StartDate </th>
+      <th scope="col" >EndDate</th>
+    </tr>
+  </thead>
+    
+      
+
+  <tbody>
+  
+   
+    <tr th:each="user:${customers}">
+
+      <td th:text="${user.cId}"/>
+       <td th:text="${user.cName}"/>
+        <td th:text="${user.cmail}"/>
+         <td th:text="${user.cPhNo}"/>
+          <td th:text="${user.cGender}"/>
+           <td th:text="${user.cSsn}"/>
+           <td th:text="${user.pName}"/>
+           <td th:text="${user.status}"/>
+           <td th:text="${user.planStartDate}"/>
+           <td  th:text="${user.planEndDate}"/>
+     </tr>
+  
+    <tr th:if="${customers==null}">
+<td style="color:red;text-align:center" colspan="11"> <h1> NO RECORDS FOUND</h1></td>
+</tr>
+
+     
+  </tbody>
+ 
+       
+</table>
+ 
+
+</div>
+ <div class="container" style="text-align:center">
+  <a th:href="@{/excel}" type="button" class="btn btn-primary">DownloadExcel</a>
+  <a th:href="@{/pdfc}" type="button" class="btn btn-danger">DownloadPdf</a>
+  </div>
+</body>
+</html>
